@@ -1,9 +1,15 @@
 import { safeParse } from "valibot";
 import { BaseResponseSchema, type BaseResponse } from "../schemas/base";
 
+type Metadata = Record<string, unknown> & {
+  timestamp: string;
+  version: string;
+  source?: string;
+};
+
 export class ResponseBuilder<T = unknown> {
   private data: T;
-  private metadata: BaseResponse["metadata"];
+  private metadata: Metadata;
 
   constructor(data: T) {
     this.data = data;
@@ -13,15 +19,15 @@ export class ResponseBuilder<T = unknown> {
     };
   }
 
-  withMetadata(metadata: Partial<BaseResponse["metadata"]>): this {
-    this.metadata = { ...this.metadata, ...metadata };
+  withMetadata(metadata: Record<string, unknown>): this {
+    this.metadata = { ...this.metadata, ...metadata } as Metadata;
     return this;
   }
 
   build(): BaseResponse {
     const response: BaseResponse = {
-      success: true,
-      data: this.data as unknown,
+      success: true as const,
+      data: this.data,
       metadata: this.metadata,
     };
 
@@ -35,15 +41,14 @@ export class ResponseBuilder<T = unknown> {
 
   static error(code: string, message: string, details?: unknown) {
     const errorResponse = {
-        success: false as const,
-        error: {
-            code,
-            message,
-            details,
-            timestamp: new Date().toISOString()
-        }
-
-    }
+      success: false as const,
+      error: {
+        code,
+        message,
+        details,
+        timestamp: new Date().toISOString(),
+      },
+    };
 
     return errorResponse;
   }
