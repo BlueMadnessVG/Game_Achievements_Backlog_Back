@@ -63,7 +63,7 @@ export class SteamService {
     }
   }
 
-  async getUseGame(steamId: string): Promise<Game[]> {
+  async getUserGames(steamId: string): Promise<Game[]> {
     const data = await this.makeRequest<{ response: { games?: SteamGame[] } }>(
       "IPlayerService/GetOwnedGames/v0001/",
       {
