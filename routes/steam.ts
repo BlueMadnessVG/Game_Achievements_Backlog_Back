@@ -65,7 +65,7 @@ router.get(
       );
 
       const response = new ResponseBuilder({
-        game: gameWithAchievements,
+        games: gameWithAchievements,
         totalCount: games.length,
         totalPlaytime,
       })

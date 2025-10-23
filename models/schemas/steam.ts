@@ -27,6 +27,7 @@ export const GameSchema = object({
     twoWeeks: optional(number()),
   }),
   iconUrl: optional(string()),
+  coverUrl: optional(string()),
   hasCommunityVisibleStats: boolean(),
   lastPlayed: optional(
     pipe(

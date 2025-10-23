@@ -94,6 +94,7 @@ export class SteamService {
         twoWeeks: game.playtime_2weeks,
       },
       iconUrl: `http://media.steampowered.com/steamcommunity/public/images/apps/${game.appid}/${game.img_icon_url}.jpg`,
+      coverUrl: `https://cdn.akamai.steamstatic.com/steam/apps/${game.appid}/library_600x900.jpg`,
       hasCommunityVisibleStats: game.has_community_visible_stats,
       lastPlayed:
         game.rtime_last_played != null
